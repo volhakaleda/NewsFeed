@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static android.content.ContentValues.TAG;
 
 
-public class JobNewsService extends JobService {
+public class NewsJobService extends JobService {
 
     private NewsFeedService newsFeedService;
 
@@ -33,7 +33,7 @@ public class JobNewsService extends JobService {
                     news.enqueue(new Callback<AllNews>() {
                         @Override
                         public void onResponse(Call<AllNews> call, Response<AllNews> response) {
-                            Log.d(TAG,"onResponse: " + response.body().getArticles().get(0).getDescription());
+                            Log.d(TAG,"onResponse: " + response.body().getArticles().get(9).getDescription());
 
                         }
 

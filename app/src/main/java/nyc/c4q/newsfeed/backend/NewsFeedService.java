@@ -4,9 +4,6 @@ import nyc.c4q.newsfeed.model.AllNews;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-/**
- * Created by olgakoleda on 2/4/18.
- */
 
 public interface NewsFeedService {
 
