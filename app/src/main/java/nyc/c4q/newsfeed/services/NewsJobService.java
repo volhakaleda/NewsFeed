@@ -50,7 +50,7 @@ public class NewsJobService extends JobService {
             public void onResponse(Call<AllNews> call, Response<AllNews> response) {
                 articlesList = response.body().getArticles();
                 DatabaseInitializer.populateAsync(TopNewsDatabase.getInstance(getApplicationContext()), articlesList);
-                notification();
+                notification(articlesList.get(articlesList.size()-1));
             }
 
             @Override
@@ -69,7 +69,8 @@ public class NewsJobService extends JobService {
 
 
 
-    public void notification() {
+    public void notification(Article article) {
+        article.getAuthor();
 
 
         int NOTIFICATION_ID = 555;

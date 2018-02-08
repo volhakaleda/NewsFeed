@@ -23,9 +23,13 @@
 
         <service
             android:name=".services.NewsJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"></service>
+            android:permission="android.permission.BIND_JOB_SERVICE">
 
-        <activity android:name=".view.SecondActivity"></activity>
+        </service>
+
+        <activity android:name=".view.SecondActivity">
+
+        </activity>
     </application>
 
 </manifest>
