@@ -40,12 +40,10 @@ public class NewsNotification {
         Notification notification = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.ic_add_alert_black_24dp)
                 .setContentTitle("News NewsNotification")
-//                .setStyle(new Notification.BigTextStyle().bigText())
                 .setContentText(builder)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build();
-
 
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
