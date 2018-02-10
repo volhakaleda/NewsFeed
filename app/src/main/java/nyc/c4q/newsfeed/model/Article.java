@@ -1,25 +1,45 @@
 package nyc.c4q.newsfeed.model;
 
-/**
- * Created by olgakoleda on 2/4/18.
- */
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Article {
+@Entity
+public class Article implements Parcelable{
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @Ignore
     private Source source;
+
+    @ColumnInfo(name = "author")
     private String author;
+
+    @ColumnInfo(name = "description")
     private String description;
+
+    @Ignore
     private String url;
+
+    @ColumnInfo(name = "image")
     private String urlToImage;
+
     private String publishedAt;
 
-    public Article(Source source, String author, String description, String url, String urlToImage, String publishedAt) {
-        this.source = source;
-        this.author = author;
-        this.description = description;
-        this.url = url;
-        this.urlToImage = urlToImage;
-        this.publishedAt = publishedAt;
+    public Article() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Source getSource() {
@@ -69,4 +89,42 @@ public class Article {
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeParcelable(this.source, flags);
+        dest.writeString(this.author);
+        dest.writeString(this.description);
+        dest.writeString(this.url);
+        dest.writeString(this.urlToImage);
+        dest.writeString(this.publishedAt);
+    }
+
+    protected Article(Parcel in) {
+        this.id = in.readInt();
+        this.source = in.readParcelable(Source.class.getClassLoader());
+        this.author = in.readString();
+        this.description = in.readString();
+        this.url = in.readString();
+        this.urlToImage = in.readString();
+        this.publishedAt = in.readString();
+    }
+
+    public static final Creator<Article> CREATOR = new Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel source) {
+            return new Article(source);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
 }

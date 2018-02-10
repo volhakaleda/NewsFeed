@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         jobScheduler.schedule(new JobInfo.Builder(Constants.LOAD_NEWS, new ComponentName(this, NewsJobService.class))
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPersisted(true)
+//                .setPeriodic(60000)
                 .build());
+
     }
 }
