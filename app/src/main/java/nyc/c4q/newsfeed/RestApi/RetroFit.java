@@ -8,12 +8,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetroFit {
-    private Retrofit retrofit;
     private NewsFeedService newService;
     private static RetroFit instance = null;
 
     private RetroFit() {
-        retrofit = new Retrofit
+        Retrofit retrofit = new Retrofit
                 .Builder()
                 .baseUrl("https://newsapi.org/")
                 .addConverterFactory(GsonConverterFactory.create())

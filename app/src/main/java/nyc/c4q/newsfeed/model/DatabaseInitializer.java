@@ -63,6 +63,7 @@ public class DatabaseInitializer {
         PopulateDatabase(TopNewsDatabase dataBase, List<Article> topnewsPojoList) {
             this.database = dataBase;
             this.topnewsPojoList = topnewsPojoList;
+
         }
 
         @Override
@@ -114,6 +115,7 @@ public class DatabaseInitializer {
         }
         @Override
         protected void onPostExecute(Void aVoid) {
+            database.close();
             asyncCallBack.getTopNewsFromDataBaseOffLine(topNewsList);
         }
 

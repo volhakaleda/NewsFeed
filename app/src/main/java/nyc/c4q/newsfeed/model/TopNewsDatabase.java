@@ -4,11 +4,12 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 /**
  * Created by mohammadnaz on 2/5/18.
  */
-@Database(entities = {TopNews.class}, version = 1, exportSchema = false)
+@Database(entities = {TopNews.class}, version = 2, exportSchema = false)
 public abstract class TopNewsDatabase extends RoomDatabase{
 
     private static final String DB_NAME = "TopNews.db";
@@ -21,8 +22,9 @@ public abstract class TopNewsDatabase extends RoomDatabase{
         return instance;
     }
 
+    @NonNull
     private static TopNewsDatabase create(final Context context) {
-        return Room.databaseBuilder(context, TopNewsDatabase.class, DB_NAME)
+        return Room.databaseBuilder(context, TopNewsDatabase.class, DB_NAME).fallbackToDestructiveMigration()
                 .build();
 
     }

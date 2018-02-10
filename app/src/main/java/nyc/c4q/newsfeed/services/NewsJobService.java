@@ -55,7 +55,7 @@ public class NewsJobService extends JobService {
 
             @Override
             public void onFailure(Call<AllNews> call, Throwable t) {
-                Log.d(TAG, "on Response: " + t.toString());
+
             }
         });
         jobFinished(params, true);
@@ -70,7 +70,7 @@ public class NewsJobService extends JobService {
 
 
     public void notification(Article article) {
-        article.getAuthor();
+
 
 
         int NOTIFICATION_ID = 555;
@@ -86,8 +86,8 @@ public class NewsJobService extends JobService {
 // Attach the pendingIntent to a new notification using setContentIntent
         Notification notification = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
+                .setContentTitle(article.getDescription())
+                .setContentText(article.getPublishedAt())
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true) // Hides the notification after its been selected
                 .build();
