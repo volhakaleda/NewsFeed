@@ -20,89 +20,84 @@ import nyc.c4q.newsfeed.model.TopNews;
  * Created by C4Q on 2/10/18.
  */
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder>{
+public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder> {
 
-    private List<TopNews> topNews=new ArrayList<>();
+    private List<TopNews> topNews = new ArrayList<>();
     private onClick onclick;
-//
-//    public DataAdapter(List<TopNews> topNews) {
-//        this.topNews = topNews;
-//        notifyDataSetChanged();
-//
-//    }
 
 
-    public void setTopNews(List<TopNews> topNewsList1111){
-///        topNews.clear();
+    public void setTopNews(List<TopNews> topNewsList1111) {
         topNews.addAll(topNewsList1111);
         notifyDataSetChanged();
-
     }
-    public void setOnclick(onClick onclick){
-        this.onclick=onclick;
+
+    public void setOnclick(onClick onclick) {
+        this.onclick = onclick;
     }
 
     @Override
     public DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_items, parent,
+                false);
         return new DataViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(DataViewHolder holder, int position) {
-        TopNews topNews2= topNews.get(position);
-        try{
-            String author= topNews2.getAuthor();
+        TopNews topNews2 = topNews.get(position);
+
+        String author = topNews2.getAuthor();
+        String desp = topNews2.getDescription();
+        String url = topNews2.getUrlToImage();
+
+        if (author != null) {
             holder.textView.setText(author);
-
-        }catch (NullPointerException n) {
+        } else {
+            holder.textView.setText("");
         }
-        try{
-            String desp= topNews2.getDescription();
+        if (desp != null) {
             holder.textView1.setText(desp);
-
-        }catch (NullPointerException n) {
+        } else {
+            holder.textView1.setText("");
         }
-        try{
+        if (url != null) {
             Glide.with(holder.imageView.getContext())
-                    .load(topNews2.getUrlToImage())
+                    .load(url)
                     .into(holder.imageView);
-
-        }catch (NullPointerException n) {
+        } else {
+            Glide.with(holder.imageView.getContext())
+                    .load("https://s3-us-west-2.amazonaws.com/internationalwomensday/home/iwd-news.png")
+                    .into(holder.imageView);
         }
-
-
-
-
-
     }
 
     @Override
     public int getItemCount() {
-        //notifyDataSetChanged();
         return topNews.size();
     }
 
-    class DataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class DataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageView;
         TextView textView;
         TextView textView1;
-        TextView textView2;
+
         public DataViewHolder(View itemView) {
             super(itemView);
-            imageView= itemView.findViewById(R.id.image1);
-            textView= itemView.findViewById(R.id.author);
-            textView1= itemView.findViewById(R.id.desc);
+            imageView = itemView.findViewById(R.id.image1);
+            textView = itemView.findViewById(R.id.author);
+            textView1 = itemView.findViewById(R.id.desc);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            int p= getAdapterPosition();
-            if(itemView.getId()== view.getId()){
+            int p = getAdapterPosition();
+            if (itemView.getId() == view.getId()) {
                 onclick.onclicker(p);
             }
         }
     }
+
     public interface onClick {
         void onclicker(int p);
     }

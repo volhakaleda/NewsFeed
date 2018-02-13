@@ -15,7 +15,7 @@ import nyc.c4q.newsfeed.RetroPojos.Article;
 
 public class DatabaseInitializer {
 
-    private static AsyncCallBack asyncCallBack;
+    static AsyncCallBack asyncCallBack;
 
     public static void setAsyncCallBack(AsyncCallBack asyncCallBack) {
         DatabaseInitializer.asyncCallBack = asyncCallBack;
@@ -80,7 +80,7 @@ public class DatabaseInitializer {
 
         private final TopNewsDatabase database;
         private final TopNews topNews;
-        Boolean done=false;
+        //Boolean done=false;
 
         RemoveNews(TopNewsDatabase dataBase, TopNews topNews) {
             this.database = dataBase;

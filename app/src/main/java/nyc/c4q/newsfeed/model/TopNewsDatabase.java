@@ -10,14 +10,14 @@ import android.support.annotation.NonNull;
  * Created by mohammadnaz on 2/5/18.
  */
 @Database(entities = {TopNews.class}, version = 2, exportSchema = false)
-public abstract class TopNewsDatabase extends RoomDatabase{
+public abstract class TopNewsDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "TopNews.db";
     private static volatile TopNewsDatabase instance;
 
     public static synchronized TopNewsDatabase getInstance(Context context) {
         if (instance == null) {
-            instance = create(context);
+            instance = create(context.getApplicationContext());
         }
         return instance;
     }

@@ -30,27 +30,21 @@ import static android.content.ContentValues.TAG;
 
 
 public class NewsJobService extends JobService {
-    private static final int NOTIFICATION_ID = 555;
-    private static final String NOTIFICATION_CHANNEL = "C4Q Notifications";
-
-
     List<Article> articlesList = new ArrayList<>();
-
     private NewsFeedService newsFeedService;
+    //DatabaseInitializer databaseInitializer= new DatabaseInitializer();
 
     @Override
     public boolean onStartJob(final JobParameters params) {
-
         RetroFit retrofit = RetroFit.getInstance();
         newsFeedService = retrofit.getNewsService();
-
         Call<AllNews> news = newsFeedService.getArticles();
         news.enqueue(new Callback<AllNews>() {
             @Override
             public void onResponse(Call<AllNews> call, Response<AllNews> response) {
                 articlesList = response.body().getArticles();
                 DatabaseInitializer.populateAsync(TopNewsDatabase.getInstance(getApplicationContext()), articlesList);
-                notification(articlesList.get(articlesList.size()-1));
+                notification(articlesList.get(articlesList.size() - 1));
             }
 
             @Override
@@ -64,13 +58,10 @@ public class NewsJobService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        return false;
+        return true;
     }
 
-
-
     public void notification(Article article) {
-
 
 
         int NOTIFICATION_ID = 555;
