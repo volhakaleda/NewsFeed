@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import nyc.c4q.newsfeed.Presenter.MainActivityPresenter;
 import nyc.c4q.newsfeed.RetroPojos.Article;
 
 
@@ -13,11 +14,11 @@ import nyc.c4q.newsfeed.RetroPojos.Article;
  * Created by mohammadnaz on 2/5/18.
  */
 
-public class DatabaseInitializer {
+public class DatabaseInitializer{
 
     static AsyncCallBack asyncCallBack;
 
-    public static void setAsyncCallBack(AsyncCallBack asyncCallBack) {
+    public static void setAsyncCallBack(AsyncCallBack asyncCallBack)  {
         DatabaseInitializer.asyncCallBack = asyncCallBack;
     }
 
@@ -124,9 +125,7 @@ public class DatabaseInitializer {
     public interface AsyncCallBack {
         void getTopNewsFromDataBaseOffLine(List<TopNews> topNewsList);
     }
-    public interface CheckifDataIsIn{
-        ///boolean
-    }
+
 
 
 }

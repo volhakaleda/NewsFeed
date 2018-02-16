@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import nyc.c4q.newsfeed.R;
@@ -23,7 +22,10 @@ import nyc.c4q.newsfeed.model.TopNews;
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder> {
 
     private List<TopNews> topNews = new ArrayList<>();
+
+
     private onClick onclick;
+
 
 
     public void setTopNews(List<TopNews> topNewsList1111) {
@@ -39,6 +41,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
     public DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_items, parent,
                 false);
+
         return new DataViewHolder(view);
     }
 
@@ -101,6 +104,42 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
     public interface onClick {
         void onclicker(int p);
     }
+
+//    public interface Animal {
+//        void move(int numFeet);
+//    }
+//
+//    public class Dog implements Animal {
+//        @Override
+//        public void move(int numFeet) {
+//            // run spot run
+//        }
+//
+//        public void bark() {
+//
+//        }
+//    }
+
+//    public class Cat implements Animal {
+//        @Override
+//        public void move(int numFeet) {
+//            // jump
+//        }
+//
+//        public void bark() {
+//
+//        }
+//    }
+//
+//    public class Zoo {
+//        private List<Animal> animals = new ArrayList<>();
+//
+//        public void moveANimals() {
+//            for (Animal animal : animals) {
+//                animal.move();
+//            }
+//        }
+//    }
 
 
 }

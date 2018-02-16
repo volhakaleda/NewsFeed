@@ -19,6 +19,7 @@ import nyc.c4q.newsfeed.Constants;
 import nyc.c4q.newsfeed.Presenter.MainActivityPresenter;
 import nyc.c4q.newsfeed.R;
 import nyc.c4q.newsfeed.RestApi.Util;
+import nyc.c4q.newsfeed.model.DatabaseInitializer;
 import nyc.c4q.newsfeed.model.TopNews;
 import nyc.c4q.newsfeed.model.TopNewsDatabase;
 import nyc.c4q.newsfeed.model.TopNewsViewModel;
@@ -39,10 +40,15 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       /// DatabaseInitializer databaseInitializer= new DatabaseInitializer();
 
 
         presenter = new MainActivityPresenter(MainActivity.this,
                 TopNewsDatabase.getInstance(getApplicationContext()));
+
+
+
+
         recyclerView = findViewById(R.id.rv);
         linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setHasFixedSize(true);

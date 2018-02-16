@@ -3,9 +3,11 @@ package nyc.c4q.newsfeed.Presenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import nyc.c4q.newsfeed.RetroPojos.Article;
 import nyc.c4q.newsfeed.model.DatabaseInitializer;
 import nyc.c4q.newsfeed.model.TopNews;
 import nyc.c4q.newsfeed.model.TopNewsDatabase;
+import nyc.c4q.newsfeed.view.MainActivity;
 
 /**
  * Created by mohammadnaz on 2/12/18.
@@ -14,15 +16,27 @@ import nyc.c4q.newsfeed.model.TopNewsDatabase;
 public class MainActivityPresenter {
     private MainActivityView mainActivityView;
     private List<TopNews> topNewsListPresenter;
+    private List<Article> topNewsListPresenter1;
+
+
     private TopNewsDatabase topNewsDatabase;
 
+
+
+
+    //INJECT
     public MainActivityPresenter(MainActivityView mainActivityView, TopNewsDatabase topNewsDatabase) {
         this.mainActivityView = mainActivityView;
         this.topNewsDatabase = topNewsDatabase;
 
+
+//        ((MainActivity)mainActivityView).finish();
+       /// presenter = BasePresenter<MainActivityView>
     }
 
     public void sendNewDatatoPresentertoSendBackToTheRecylcerView(List<TopNews> topNews) {
+       // DatabaseInitializer.populateAsync(topNewsDatabase,topNewsListPresenter1);
+
         topNewsListPresenter = new ArrayList<>();
         for (int i = topNews.size() - 1; i > 0; i--) {
             TopNews topNews1 = topNews.get(i);
@@ -60,8 +74,8 @@ public class MainActivityPresenter {
         void sendDataToListner(String url);
     }
 
-    interface DatabaseInterface {
-        void insertNewCustomer(TopNews topNews);
+    public interface DatabaseInterface {
+        void insertNews(TopNews topNews);
 
         List<TopNews> getAll();
 
