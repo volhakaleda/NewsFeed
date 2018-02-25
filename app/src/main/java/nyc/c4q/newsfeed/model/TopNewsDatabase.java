@@ -17,7 +17,7 @@ public abstract class TopNewsDatabase extends RoomDatabase {
 
     public static synchronized TopNewsDatabase getInstance(Context context) {
         if (instance == null) {
-            instance = create(context.getApplicationContext());
+            instance = create(context);
         }
         return instance;
     }

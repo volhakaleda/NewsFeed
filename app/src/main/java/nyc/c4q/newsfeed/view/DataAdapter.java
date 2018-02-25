@@ -24,7 +24,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
     private List<TopNews> topNews = new ArrayList<>();
 
 
-    private onClick onclick;
+    private onClick onclickListener;
 
 
 
@@ -33,8 +33,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         notifyDataSetChanged();
     }
 
-    public void setOnclick(onClick onclick) {
-        this.onclick = onclick;
+    public void setOnclickListener(onClick onclickListener) {
+        this.onclickListener = onclickListener;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         TopNews topNews2 = topNews.get(position);
 
         String author = topNews2.getAuthor();
-        String desp = topNews2.getDescription();
+        String description = topNews2.getDescription();
         String url = topNews2.getUrlToImage();
 
         if (author != null) {
@@ -58,8 +58,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         } else {
             holder.textView.setText("");
         }
-        if (desp != null) {
-            holder.textView1.setText(desp);
+        if (description != null) {
+            holder.textView1.setText(description);
         } else {
             holder.textView1.setText("");
         }
@@ -79,10 +79,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         return topNews.size();
     }
 
-    class DataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView imageView;
-        TextView textView;
-        TextView textView1;
+    public class DataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+       private ImageView imageView;
+       private TextView textView;
+       private TextView textView1;
 
         public DataViewHolder(View itemView) {
             super(itemView);
@@ -96,13 +96,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         public void onClick(View view) {
             int p = getAdapterPosition();
             if (itemView.getId() == view.getId()) {
-                onclick.onclicker(p);
+                onclickListener.onclickOnRecyclerView(p);
             }
         }
     }
 
     public interface onClick {
-        void onclicker(int p);
+        void onclickOnRecyclerView(int p);
     }
 
 //    public interface Animal {

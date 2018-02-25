@@ -15,7 +15,7 @@ import nyc.c4q.newsfeed.view.MainActivity;
 
 public class MainActivityPresenter {
     private MainActivityView mainActivityView;
-    private List<TopNews> topNewsListPresenter;
+    private List<TopNews>topNewsList;
     private List<Article> topNewsListPresenter1;
 
 
@@ -30,48 +30,65 @@ public class MainActivityPresenter {
         this.topNewsDatabase = topNewsDatabase;
 
 
-//        ((MainActivity)mainActivityView).finish();
+      ///((MainActivity)mainActivityView).H();
        /// presenter = BasePresenter<MainActivityView>
     }
 
     public void sendNewDatatoPresentertoSendBackToTheRecylcerView(List<TopNews> topNews) {
        // DatabaseInitializer.populateAsync(topNewsDatabase,topNewsListPresenter1);
 
-        topNewsListPresenter = new ArrayList<>();
+        topNewsList = new ArrayList<>();
         for (int i = topNews.size() - 1; i > 0; i--) {
             TopNews topNews1 = topNews.get(i);
-            topNewsListPresenter.add(topNews1);
+            topNewsList.add(topNews1);
         }
 
-        mainActivityView.addData(topNewsListPresenter);
+        mainActivityView.addData(topNewsList);
+
     }
 
     public void getPositionofRecyclerView(int position) {
-        TopNews topNews = topNewsListPresenter.get(position);
+        TopNews topNews = topNewsList.get(position);
         String url = topNews.getUrl();
         mainActivityView.sendDataToListner(url);
     }
 
     public void getDataBaseData() {
-        topNewsListPresenter = new ArrayList<>();
+        topNewsList = new ArrayList<>();
         DatabaseInitializer.getAllNewsAsync(topNewsDatabase);
         DatabaseInitializer.setAsyncCallBack(new DatabaseInitializer.AsyncCallBack() {
             @Override
             public void getTopNewsFromDataBaseOffLine(List<TopNews> topNewsList) {
                 for (int i = topNewsList.size() - 1; i > 0; i--) {
                     TopNews topNews1 = topNewsList.get(i);
-                    topNewsListPresenter.add(topNews1);
+                    topNewsList.add(topNews1);
                 }
-                mainActivityView.addData(topNewsListPresenter);
+                mainActivityView.addData(topNewsList);
             }
         });
 
     }
+    public void Attach(MainActivityView mainActivityView, TopNewsDatabase topNewsDatabase) {
+        this.mainActivityView=mainActivityView;
+        this.topNewsDatabase=topNewsDatabase;
+    }
+
+    public void Detach(){
+        mainActivityView=null;
+        topNewsDatabase=null;
+    }
+
+
 
     public interface MainActivityView {
         void addData(List<TopNews> topNewsList);
 
         void sendDataToListner(String url);
+    }
+
+    public interface BaseActivty{
+        void Detach();
+        void Attach();
     }
 
     public interface DatabaseInterface {

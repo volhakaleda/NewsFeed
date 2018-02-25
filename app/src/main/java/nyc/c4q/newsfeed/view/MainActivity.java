@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.List;
 
@@ -29,6 +30,8 @@ import nyc.c4q.newsfeed.services.NewsJobService;
 public class MainActivity extends AppCompatActivity
         implements DataAdapter.onClick, MainActivityPresenter.MainActivityView {
 
+
+    private final static String TAG = MainActivity.class.getName();
     TopNewsViewModel viewModel;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
@@ -40,20 +43,21 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       /// DatabaseInitializer databaseInitializer= new DatabaseInitializer();
+        /// DatabaseInitializer databaseInitializer= new DatabaseInitializer();
+       /// DatabaseInitializer.populateAsync();
 
 
         presenter = new MainActivityPresenter(MainActivity.this,
-                TopNewsDatabase.getInstance(getApplicationContext()));
+                TopNewsDatabase.getInstance(this));
 
-
+        Log.e(TAG, "onCreate: presenter created");
 
 
         recyclerView = findViewById(R.id.rv);
         linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setHasFixedSize(true);
         dataAdapter = new DataAdapter();
-        dataAdapter.setOnclick(MainActivity.this);
+        dataAdapter.setOnclickListener(MainActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setAdapter(dataAdapter);
@@ -81,7 +85,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onclicker(int p) {
+    public void onclickOnRecyclerView(int p) {
         presenter.getPositionofRecyclerView(p);
     }
 
@@ -98,5 +102,45 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+
+    //lifecycle
+
+    @Override
+    protected void onPause() {
+        presenter.Detach();
+        // presenter=null;
+        Log.e(TAG, "onPause: presenter Detached");
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        //if(presenter==null) {
+        presenter.Attach(MainActivity.this, TopNewsDatabase.getInstance(getApplicationContext()));
+        Log.e(TAG, "onResume: prsenter attached");
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        presenter.Detach();
+        Log.e(TAG, "onStop: Detach called on presenter");
+
+        super.onStop();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        presenter.Detach();
+        //presenter=null;
+        Log.e(TAG, "onDestroy: Detach called on presenter");
+        super.onDestroy();
+    }
+
+    public void H() {
+
+    }
 }
 

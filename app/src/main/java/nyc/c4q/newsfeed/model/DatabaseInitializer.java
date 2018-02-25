@@ -112,6 +112,7 @@ public class DatabaseInitializer{
         @Override
         protected Void doInBackground(Void... voids) {
            topNewsList= database.getTopNewsDao().fetchAll();
+           //TopNewsDoa topNewsDoa=database.getTopNewsDao();
             return null;
         }
         @Override
